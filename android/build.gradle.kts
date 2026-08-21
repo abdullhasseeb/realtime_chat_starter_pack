@@ -4,7 +4,6 @@ allprojects {
         mavenCentral()
     }
 }
-
 val newBuildDir: Directory =
     rootProject.layout.buildDirectory
         .dir("../../build")
@@ -15,6 +14,17 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
+
+subprojects {
+    afterEvaluate {
+        if (project.name == "camera_android_camerax") {
+            dependencies {
+                add("implementation", "androidx.concurrent:concurrent-futures:1.3.0")
+            }
+        }
+    }
+}
+
 subprojects {
     project.evaluationDependsOn(":app")
 }
