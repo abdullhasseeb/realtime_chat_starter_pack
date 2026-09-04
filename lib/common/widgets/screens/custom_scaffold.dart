@@ -12,12 +12,12 @@ class UPScaffold extends StatelessWidget {
     this.appBar,
     this.bottomNavigationBar,
     this.resizeToAvoidBottomInset,
-    this.applyPadding = true,
+    this.applyPadding = false,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.floatingActionButtonAnimator,
     this.backgroundColor,
-    this.useSafeArea = true,
+    this.useSafeArea = false,
     this.lightToolbarIcons = false,
     this.extendBody = true
   });
