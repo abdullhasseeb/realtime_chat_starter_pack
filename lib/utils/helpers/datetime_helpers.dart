@@ -63,4 +63,46 @@ class UPDateTimeHelpers {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return months[month - 1];
   }
+
+  static bool isDifferentDay(DateTime a, DateTime b){
+    bool isDifferent = a.year != b.year || a.month != b.month || a.day != b.day;
+    return isDifferent;
+  }
+
+  static String formatDate(DateTime date) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    final messageDay = DateTime(date.year, date.month, date.day);
+
+    final diff = today.difference(messageDay).inDays;
+
+    if (messageDay == today) return 'Today';
+    if (messageDay == yesterday) return 'Yesterday';
+    if (diff < 7) return _dayName(date.weekday); // Mon, Tue...
+    return _fullDate(date); // 27 Mar 2026
+  }
+
+  static String _dayName(int weekday) {
+    const days = [
+      'Monday', 'Tuesday', 'Wednesday',
+      'Thursday', 'Friday', 'Saturday', 'Sunday'
+    ];
+    return days[weekday - 1];
+  }
+
+  static String _fullDate(DateTime date) {
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    return '${date.day} ${months[date.month - 1]} ${date.year}';
+  }
+
+  static String formatMessageTime(DateTime time){
+    final hour = time.hour == 0 ? 12 : time.hour > 12 ? time.hour - 12 : time.hour;
+    final minute = time.minute.toString().padLeft(2, '0');
+    final period = time.hour < 12 ? 'AM' : 'PM';
+    return '$hour:$minute $period';
+  }
 }
